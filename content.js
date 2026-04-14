@@ -2,7 +2,7 @@
   const app = globalThis.AttendanceLogoutExtension || {};
 
   app.LOG_PREFIX = "[Attendance Logout Extension]";
-  app.TARGET_PATH = "/ms/time/660001/attendance";
+  app.TARGET_PATH_PATTERN = /^\/ms\/time\/[^/]+\/attendance\/?$/;
   app.TODAY_ROW_SELECTOR = 'tr.table-row[is-today="1"]';
   app.GENERATED_ATTR = "data-attendance-logout-generated";
   app.ORIGINAL_VALUE_ATTR = "data-attendance-logout-original";
@@ -31,7 +31,10 @@
   };
 
   app.isTargetAttendancePage = function isTargetAttendancePage() {
-    return window.location.origin === "https://musigma.darwinbox.in" && window.location.pathname === app.TARGET_PATH;
+    return (
+      window.location.origin === "https://musigma.darwinbox.in" &&
+      app.TARGET_PATH_PATTERN.test(window.location.pathname)
+    );
   };
 
   globalThis.AttendanceLogoutExtension = app;

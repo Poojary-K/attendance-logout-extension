@@ -6,7 +6,7 @@ It is designed for local unpacked use only. There is no build step, no external 
 
 ## What The Extension Does
 
-- Runs only on the Darwinbox attendance page at `https://musigma.darwinbox.in/ms/time/660001/attendance`
+- Runs only on Darwinbox attendance pages matching `https://musigma.darwinbox.in/ms/time/<user-id>/attendance`
 - Looks for today's row using `tr.table-row[is-today="1"]` when available, with a date-text fallback for pages that omit that attribute
 - Finds the `Time In`, `Time Out`, and `Total Work Duration` cells from the table headers when possible, with a time-pattern fallback if the header lookup fails
 - Calculates two estimates:
@@ -52,7 +52,7 @@ The manifest is the entry point for the extension. In this project it:
 - restricts script injection to `https://musigma.darwinbox.in/*`
 - runs the content script at `document_idle`, which means after the initial page load work is mostly done
 
-The content script then does an extra runtime check so the logic only runs on the exact attendance page path.
+The content script then does an extra runtime check so the logic only runs on attendance page paths shaped like `/ms/time/<user-id>/attendance`.
 
 ## How To Load The Extension In Chrome
 
@@ -61,7 +61,7 @@ The content script then does an extra runtime check so the logic only runs on th
 3. Click **Load unpacked**
 4. Select the `attendance-logout-extension` folder
 5. Open the Darwinbox attendance page:
-   `https://musigma.darwinbox.in/ms/time/660001/attendance`
+   `https://musigma.darwinbox.in/ms/time/<your-user-id>/attendance`
 
 ## How To Reload After Code Changes
 
