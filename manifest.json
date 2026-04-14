@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Attendance Logout Extension",
+  "version": "1.0.0",
+  "description": "Shows an estimated logout time on the Darwinbox attendance page.",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://musigma.darwinbox.in/*"
+      ],
+      "js": [
+        "content.js",
+        "content/time.js",
+        "content/attendance-dom.js",
+        "content/runtime.js"
+      ],
+      "css": [
+        "styles.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

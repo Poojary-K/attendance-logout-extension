@@ -1,0 +1,51 @@
+.attendance-logout-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  line-height: 1.25;
+  max-width: 100%;
+}
+
+.attendance-logout-actual {
+  color: inherit;
+  font-size: inherit;
+  font-weight: 500;
+}
+
+.attendance-logout-estimates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-width: 100%;
+}
+
+.attendance-logout-estimate {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 0.75em;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.attendance-logout-estimate-secondary {
+  color: #855b00;
+  background: rgba(255, 191, 71, 0.16);
+}
+
+.attendance-logout-estimate-primary {
+  color: #1f8f4e;
+  background: rgba(31, 143, 78, 0.14);
+}
+
+.attendance-logout-estimate-duration {
+  opacity: 0.8;
+}
+
+.attendance-logout-estimate-time {
+  font-weight: 700;
+}
