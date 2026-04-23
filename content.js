@@ -9,8 +9,8 @@
   app.ESTIMATE_VALUE_ATTR = "data-attendance-logout-estimate";
   app.ENHANCED_ATTR = "data-attendance-logout-enhanced";
   app.ESTIMATE_RULES = [
-    { key: "half-day", label: "Half day", durationLabel: "4h 30m", minutes: 4 * 60 + 30, tone: "secondary" },
-    { key: "full-day", label: "Logout", durationLabel: "8h 45m", minutes: 8 * 60 + 45, tone: "primary" }
+    { key: "half-day", label: "Half day", durationLabel: "4h 30m", durationSeconds: 4 * 3600 + 30 * 60, tone: "secondary" },
+    { key: "full-day", label: "Logout", durationLabel: "8h 45m", durationSeconds: 8 * 3600 + 45 * 60, tone: "primary" }
   ];
   app.TIME_PATTERN = /^\d{1,2}:\d{2}(?::\d{2})?$/;
 

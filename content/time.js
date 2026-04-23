@@ -52,14 +52,15 @@
     return { hours, minutes, seconds };
   };
 
-  app.addMinutesToTime = function addMinutesToTime(parts, minutesToAdd) {
-    if (!parts || typeof minutesToAdd !== "number") {
+  app.addSecondsToTime = function addSecondsToTime(parts, secondsToAdd) {
+    if (!parts || typeof secondsToAdd !== "number") {
       return null;
     }
 
     const totalSecondsInDay = 24 * 60 * 60;
     const startingSeconds = parts.hours * 3600 + parts.minutes * 60 + parts.seconds;
-    const updatedSeconds = ((startingSeconds + minutesToAdd * 60) % totalSecondsInDay + totalSecondsInDay) % totalSecondsInDay;
+    const updatedSeconds =
+      ((startingSeconds + secondsToAdd) % totalSecondsInDay + totalSecondsInDay) % totalSecondsInDay;
 
     const hours = Math.floor(updatedSeconds / 3600);
     const minutes = Math.floor((updatedSeconds % 3600) / 60);
@@ -88,14 +89,19 @@
     }
 
     return app.ESTIMATE_RULES.map((rule) => {
-      const estimatedParts = app.addMinutesToTime(timeInParts, rule.minutes);
+      const estimatedParts = app.addSecondsToTime(timeInParts, rule.durationSeconds);
       if (!estimatedParts) {
         return null;
       }
 
       return {
         ...rule,
-        timeText: app.formatToAmPm(estimatedParts.hours, estimatedParts.minutes)
+        timeText: app.formatToAmPm(
+          estimatedParts.hours,
+          estimatedParts.minutes,
+          estimatedParts.seconds,
+          true
+        )
       };
     }).filter(Boolean);
   };
