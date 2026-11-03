@@ -114,14 +114,26 @@ Open `content.js` and find this configuration near the top:
 
 ```js
 app.ESTIMATE_RULES = [
-  { key: "half-day", label: "Half day", durationLabel: "4h 30m", minutes: 4 * 60 + 30, tone: "secondary" },
-  { key: "full-day", label: "Logout", durationLabel: "8h 45m", minutes: 8 * 60 + 45, tone: "primary" }
+  {
+    key: "half-day",
+    label: "Half day",
+    durationLabel: "4h 30m",
+    durationSeconds: 4 * 3600 + 30 * 60,
+    tone: "secondary"
+  },
+  {
+    key: "full-day",
+    label: "Logout",
+    durationLabel: "8h 45m",
+    durationSeconds: 8 * 3600 + 45 * 60,
+    tone: "primary"
+  }
 ];
 ```
 
 Examples:
 
-- `minutes: 5 * 60` for a 5 hour threshold
+- `durationSeconds: 5 * 3600` for a 5 hour threshold
 - `durationLabel: "5h"` to match that display label
 - changing the `label` text updates the tooltip shown on hover
 
