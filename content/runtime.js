@@ -49,6 +49,11 @@
   };
 
   app.scheduleUpdate = function scheduleUpdate() {
+    // Avoid doing work when the tab is in the background.
+    if (document.hidden) {
+      return;
+    }
+
     window.clearTimeout(app.refreshTimer);
     app.refreshTimer = window.setTimeout(app.updateAttendanceEstimate, 120);
   };
@@ -64,8 +69,8 @@
 
     observer.observe(document.body, {
       childList: true,
-      subtree: true,
-      characterData: true
+      subtree: true
+      // characterData removed to reduce observer churn
     });
 
     app.observerStarted = true;
@@ -83,6 +88,16 @@
 
     window.setTimeout(app.updateAttendanceEstimate, 500);
     window.setTimeout(app.updateAttendanceEstimate, 1500);
+
+    // Refresh once when the user returns to the tab.
+    if (!app._visibilityListenerAttached) {
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) {
+          app.scheduleUpdate();
+        }
+      });
+      app._visibilityListenerAttached = true;
+    }
   };
 
   app.init();
