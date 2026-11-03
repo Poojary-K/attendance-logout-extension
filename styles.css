@@ -30,16 +30,25 @@
   font-weight: 600;
   line-height: 1.2;
   white-space: nowrap;
+  cursor: default;
+  user-select: none;
+  transition: opacity 0.15s ease;
+}
+
+.attendance-logout-estimate:hover {
+  opacity: 0.85;
 }
 
 .attendance-logout-estimate-secondary {
   color: #855b00;
   background: rgba(255, 191, 71, 0.16);
+  border: 1px solid rgba(255, 191, 71, 0.4);
 }
 
 .attendance-logout-estimate-primary {
   color: #1f8f4e;
   background: rgba(31, 143, 78, 0.14);
+  border: 1px solid rgba(31, 143, 78, 0.35);
 }
 
 .attendance-logout-estimate-duration {
