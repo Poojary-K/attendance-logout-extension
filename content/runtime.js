@@ -58,8 +58,36 @@
       return;
     }
 
-    const observer = new MutationObserver(() => {
-      app.scheduleUpdate();
+    const observer = new MutationObserver((mutations) => {
+      // Avoid scheduling updates for DOM changes caused by this extension itself.
+      // This reduces unnecessary work and prevents observer-triggered feedback loops.
+      const hasRelevantMutation = mutations.some((mutation) => {
+        const nodes = [];
+
+        if (mutation.target) {
+          nodes.push(mutation.target);
+        }
+
+        mutation.addedNodes && nodes.push(...mutation.addedNodes);
+        mutation.removedNodes && nodes.push(...mutation.removedNodes);
+
+        return nodes.some((node) => {
+          if (!node || node.nodeType !== Node.ELEMENT_NODE) {
+            return false;
+          }
+
+          const element = /** @type {Element} */ (node);
+
+          return !(
+            element.hasAttribute?.(app.GENERATED_ATTR) ||
+            element.closest?.(`[${app.GENERATED_ATTR}="true"]`)
+          );
+        });
+      });
+
+      if (hasRelevantMutation) {
+        app.scheduleUpdate();
+      }
     });
 
     observer.observe(document.body, {
